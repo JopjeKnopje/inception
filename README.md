@@ -27,3 +27,16 @@ docker image rm -f "image name/id"
 //stop a running image,
 docker image kill "name"
 ```
+
+
+
+### Notes
+
+To manually build docker container CD into its directory (for example `cd src/requiredments/nginx`)
+
+
+and run `docker build -t nginx .`
+
+
+Starting nginx container
+`docker run --name nginx -p 9001:443 nginx`
