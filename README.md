@@ -49,6 +49,7 @@ Starting nginx container
 - docker-compose logs -f --tail 5, //see the first 5 lines of the logs of your containers
 - docker-compose stop , //stop a stack of your docker compose
 - Docker-compose down, //destroy all your ressources
+- docker-compose rm,  // delete containers
 - docker-compose config, //check the syntax of you docker-compose file
 ```
 
