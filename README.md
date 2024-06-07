@@ -40,3 +40,19 @@ and run `docker build -t nginx .`
 
 Starting nginx container
 `docker run --name nginx -p 9001:443 nginx`
+
+
+### Docker compose
+```
+- docker-compose up -d --build, //Create and build all the containers and they still run in the background
+- docker-compose ps, //Check the status for all the containers
+- docker-compose logs -f --tail 5, //see the first 5 lines of the logs of your containers
+- docker-compose stop , //stop a stack of your docker compose
+- Docker-compose down, //destroy all your ressources
+- docker-compose config, //check the syntax of you docker-compose file
+```
+
+
+## Docker file instructions
+`RUN` Runs when we build the image
+`CMD` Runs when we start the container

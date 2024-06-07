@@ -1,32 +1,36 @@
 version: '3'
 
 services:
-
-  mariadb:
-    container_name: mariadb
-    # path to file that contains `Dockerfile`
-    build: ./requirements/mariadb
-    #volumes allow to store in a persistent disk the content in a local disk
-    #db_data is a volume created by docker directly
-    volumes:
-      # - mariadb_data:/var/lib/mysql
-      - mariadb_data:/var/lib/mysql
-    # in case of problem we restart automatically the container
-    # networks:
-    #   - network
-    restart: always
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
     ports:
-      - 3306:3306
+# in the VM it should be 443, but on the macs we cant use priveliged ports.
+      # - 443:443
+      - 9001:443
+    volumes:
+      - wordpress_data:/var/www/html
+    restart: always
+    networks:
+      - network
+
+  wordpress:
+    container_name: wordpress
+
+    depends_on:
+      # - mariadb
+      - nginx
+    build: ./requirements/wordpress
+    restart: always
     env_file:
       - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - network
 
 
 
-
-#
-# networks:
-#   network:
-#     driver: bridge
 volumes:
   mariadb_data:
     driver: local
@@ -34,3 +38,13 @@ volumes:
       type: none
       device: /home/jboeve/data/mysql
       o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jboeve/data/wordpress
+      o: bind
+
+networks:
+  network:
+    driver: bridge

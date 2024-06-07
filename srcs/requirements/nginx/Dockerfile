@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update
-RUN apt-get install -y openssl nginx
+RUN apt-get install -y openssl nginx php-fpm
 
 # Generate SSL key for https
 RUN mkdir /etc/nginx/ssl
