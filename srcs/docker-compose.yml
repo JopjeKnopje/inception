@@ -1,4 +1,14 @@
 services:
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    restart: always
+    networks:
+      - network
   nginx:
     container_name: nginx
     build: ./requirements/nginx
@@ -9,22 +19,12 @@ services:
     volumes:
       - wordpress_data:/var/www/html
     restart: always
+    depends_on:
+      - wordpress
     networks:
       - network
 
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress
-    depends_on:
-      # - mariadb
-      - nginx
-    env_file:
-      - .env
-    volumes:
-      - wordpress_data:/var/www/html
-    restart: always
-    networks:
-      - network
+
 
 
 
