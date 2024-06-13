@@ -1,43 +1,24 @@
-#!/bin/sh
+#!/bin/bash
 
-mysql_install_db
+#---------------------------------------------------zsh---------------------------------------------------#
 
-/etc/init.d/mysql start
+chsh -s $(which zsh)
+wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+echo "alias zshi='sh /install.sh'" >> ~/.zshrc
 
-#Check if the database exists
+#---------------------------------------------------mariadb start---------------------------------------------------#
 
-if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
-then 
+service mariadb start
+sleep 5
 
-	echo "Database already exists"
-else
+#---------------------------------------------------mariadb config---------------------------------------------------#
 
-# Set root option so that connexion without root password is not possible
+mariadb -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DB}\`;"
+mariadb -e "CREATE USER IF NOT EXISTS \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
+mariadb -e "GRANT ALL PRIVILEGES ON ${MYSQL_DB}.* TO \`${MYSQL_USER}\`@'%';"
+mariadb -e "FLUSH PRIVILEGES;"
 
-mysql_secure_installation << _EOF_
-root123
-Y
-n
-Y
-Y
-Y
+#---------------------------------------------------mariadb restart---------------------------------------------------#
 
-_EOF_
-
-#Add a root user on 127.0.0.1 to allow remote connexion 
-#Flush privileges allow to your sql tables to be updated automatically when you modify it
-#mysql -uroot launch mysql command line client
-echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
-
-#Create database and user in the database for wordpress
-
-echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE; GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; FLUSH PRIVILEGES;" | mysql -u root
-
-#Import database in the mysql command line
-mysql -uroot -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < /usr/local/bin/wordpress.sql
-
-fi
-
-/etc/init.d/mysql stop
-
-exec "$@"
+mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
+mysqld_safe --port=3306 --bind-address=0.0.0.0 --datadir='/var/lib/mysql'

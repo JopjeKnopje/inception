@@ -20,7 +20,6 @@ start:
 	docker-compose -f ./srcs/docker-compose.yml start
 
 build:
-	clear
 	docker-compose -f ./srcs/docker-compose.yml build
 
 ng:
