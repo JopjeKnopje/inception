@@ -1,5 +1,5 @@
-WP_DATA = ~/docker_volumes/wordpress
-DB_DATA = ~/docker_volumes/mariadb
+WP_DATA = ~/data/wordpress
+DB_DATA = ~/data/mariadb
 
 .PHONY: all up down stop start build ng mdb wp clean re prune
 
