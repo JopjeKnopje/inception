@@ -15,14 +15,13 @@ else
 # Set root option so that connexion without root password is not possible
 
 mysql_secure_installation << _EOF_
-
-Y
-root4life
-root4life
+root123
 Y
 n
 Y
 Y
+Y
+
 _EOF_
 
 #Add a root user on 127.0.0.1 to allow remote connexion 
