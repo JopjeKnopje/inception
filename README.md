@@ -2,6 +2,12 @@
 Docker? I barely know her
 
 
+TODO
+- [ ] Run system in VM.
+- [ ] Set VM's hostname to `jboeve.42.fr`.
+- [ ] Set nginx's exposed port to 443:443.
+
+
 ## Running
 
 ```
