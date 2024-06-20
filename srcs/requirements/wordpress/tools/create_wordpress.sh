@@ -1,24 +1,45 @@
 #!/bin/sh
 
-#check if wp-config.php exist
-if [ -f ./wp-config.php ]
+if [ -f /var/www/html/wp-login.php ]
 then
-	echo "wordpress already downloaded"
+    echo "Wordpress is already installed"
 else
-
-
-	wget http://wordpress.org/latest.tar.gz
-	tar xfz latest.tar.gz
-	mv wordpress/* .
-	rm -rf latest.tar.gz
-	rm -rf wordpress
-
-
-	sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
-	sed -i "s/password_here/$MYSQL_PASSWORD/g" wp-config-sample.php
-	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config-sample.php
-	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wp-config-sample.php
-	cp wp-config-sample.php wp-config.php
+    wp core download --path="/var/www/html" --allow-root
 fi
 
+if [ -f /var/www/html/wp-config.php ]; then
+    echo "WordPress is already configured"
+else
+    echo "Creating Wordpress config..."
+
+    cd /var/www/html
+
+    wp config create --path="/var/www/html" \
+                     --dbname="$MYSQL_DATABASE" \
+                     --dbuser="$MYSQL_USER" \
+                     --dbpass="$MYSQL_PASSWORD" \
+                     --dbhost="mariadb" \
+                     --allow-root
+
+    echo "Installing Wordpress core..."
+
+    wp core install --path="/var/www/html" \
+                    --title="wordpress" \
+                    --admin_user="$WORDPRESS_ADMIN_USER" \
+                    --admin_password="$WORDPRESS_ADMIN_PASS" \
+                    --admin_email="jboeve009@gmail.com" \
+                    --url="https://jboeve.codam.nl/" \
+                    --skip-email \
+                    --allow-root
+
+
+    echo "Creating an additional user..."
+
+    wp user create "$WORDPRESS_USER" user@user.com \
+                    --path="/var/www/html" \
+                    --user_pass="$WORDPRESS_USER_PASS" \
+                    --allow-root
+fi
+
+echo "Running php-fpm."
 exec "$@"

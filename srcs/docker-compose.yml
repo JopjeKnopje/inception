@@ -26,7 +26,9 @@ services:
       - wordpress_data:/var/www/html
     restart: always
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
+        required: true 
     networks:
       - network
     env_file:
@@ -40,6 +42,8 @@ services:
     volumes:
       - wordpress_data:/var/www/html
     restart: always
+    depends_on:
+      - wordpress
     networks:
       - network
     ports:
@@ -56,5 +60,12 @@ services:
     restart: always
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "/etc/healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 2s
+      start_interval: 5s
 
 
