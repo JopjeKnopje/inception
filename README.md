@@ -3,7 +3,7 @@
 
 TODO
 - [ ] Run system in VM.
-- [ ] Set VM's hostname to `jboeve.42.fr`.
+- [ ] Set VM's hostname to `jboeve.codam.nl`.
 - [ ] Set nginx's exposed port to 443:443.
 - [ ] Induce a crash and verify that the containers restart.
 - [ ] Check out `In your WordPress database, there must be two users, one of them being the administrator. The administrator’s username can’t contain admin/Admin or administrator/Administrator (e.g., admin, administrator, Administrator, admin-123, and
