@@ -1,6 +1,13 @@
 # inception
+## NOTES
+This setup was running in `pop-os_22.04_LTS non nvdia`
 
-## NOTE
+
+## Docker versions
+
+
+
+
 Docker version
 `
 Client: Docker Engine - Community
