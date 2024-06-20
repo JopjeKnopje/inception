@@ -61,7 +61,7 @@ services:
       - .env
     healthcheck:
       test: ["CMD", "/etc/healthcheck.sh", "--connect", "--innodb_initialized"]
-      interval: 5s
+      interval: 1m
       timeout: 5s
       retries: 10
       start_period: 2s
