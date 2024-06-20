@@ -34,7 +34,14 @@ docker image rm -f "image name/id"
 
 //stop a running image,
 docker image kill "name"
+
+
+// dirty hack for removing local volume
+docker run -it -v ~/data:/volumedata  --rm debian:latest bash
+
 ```
+
+
 
 
 
