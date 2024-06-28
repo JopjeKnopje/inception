@@ -8,8 +8,8 @@ This setup was running in `pop-os_22.04_LTS non nvdia`
 
 
 
-Docker version
-`
+Docker version:
+```
 Client: Docker Engine - Community
  Version:           26.1.4
  API version:       1.45
@@ -37,10 +37,9 @@ Server: Docker Engine - Community
  docker-init:
   Version:          0.19.0
   GitCommit:        de40ad0
-`
+```
 
-Docker compose version
-`Docker Compose version v2.27.1`
+Docker compose version: ```Docker Compose version v2.27.1```
 
 
 
