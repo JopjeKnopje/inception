@@ -43,15 +43,6 @@ Docker compose version: ```Docker Compose version v2.27.1```
 
 
 
-TODO
-- [ ] Run system in VM.
-- [ ] Set VM's hostname to `jboeve.codam.nl`.
-- [ ] Set nginx's exposed port to 443:443.
-- [ ] Induce a crash and verify that the containers restart.
-- [ ] Check out `In your WordPress database, there must be two users, one of them being the administrator. The administrator’s username can’t contain admin/Admin or administrator/Administrator (e.g., admin, administrator, Administrator, admin-123, and
-so forth).`
-
-
 ## Running
 
 ```
@@ -105,7 +96,7 @@ Starting nginx container
 - docker-compose ps, //Check the status for all the containers
 - docker-compose logs -f --tail 5, //see the first 5 lines of the logs of your containers
 - docker-compose stop , //stop a stack of your docker compose
-- Docker-compose down, //destroy all your ressources
+- docker-compose down, //destroy all your resources
 - docker-compose rm,  // delete containers
 - docker-compose config, //check the syntax of you docker-compose file
 ```
